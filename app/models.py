@@ -7,7 +7,7 @@ from app import db, oembed
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
-    timestamp = db.Column(db.DateTime)
+    timestamp = db.Column(db.DateTime, nullable=False)
     archived = db.Column(db.Boolean, default=False)
 
     class Meta:
@@ -25,10 +25,9 @@ class Note(db.Model):
                 urlize_all=True)
         return Markup(html)
 
-    @classmethod
-    def public(cls):
+    @staticmethod
+    def public():
         return (Note
-                .select()
-                .where(Note.archived == False)
-                .order_by(Note.timestamp.desc())
+                .query
+                .filter_by(archived=False)
                 )
