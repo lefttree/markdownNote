@@ -97,8 +97,9 @@ Notes = window.Notes || {};
       this.editor.css('color', '#464545');
       $.post(this.form.attr('target'), this.form.serialize(), function(data) {
         if (data.success) {
+          console.log(data);
           self.editor.val('').focus();
-          listElem = $(data.note);
+          var listElem = $(data.note);
           listElem.find('a.archive-note').on('click', self.archiveNote);
           self.container.prepend(listElem);
           self.container.masonry('prepended', listElem);
