@@ -10,9 +10,6 @@ class Note(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False)
     archived = db.Column(db.Boolean, default=False)
 
-    class Meta:
-        database = db
-
     def html(self):
         """
         Run the content throught markdown, converts links into objects
